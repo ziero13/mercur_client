@@ -3,6 +3,7 @@ export 'offer.dart';
 export 'customer_cart.dart';
 export 'order_group.dart';
 export 'customer.dart';
+export 'customer_address.dart';
 export 'seller.dart';
 export 'pagination_params.dart';
 export 'enums/enums.dart';

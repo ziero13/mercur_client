@@ -1,3 +1,5 @@
+import 'customer_address.dart';
+
 /// Customer account (Store surface shape; shared entity).
 ///
 /// Only `id` is required — partial `fields` selections fall back to
@@ -10,6 +12,7 @@ class Customer {
     this.lastName,
     this.phone,
     this.companyName,
+    this.addresses = const [],
   });
 
   final String id;
@@ -18,8 +21,10 @@ class Customer {
   final String? lastName;
   final String? phone;
   final String? companyName;
+  final List<CustomerAddress> addresses;
 
   factory Customer.fromJson(Map<String, dynamic> json) {
+    final rawAddresses = json['addresses'];
     return Customer(
       id: json['id'] as String,
       email: json['email'] as String?,
@@ -27,6 +32,13 @@ class Customer {
       lastName: json['last_name'] as String?,
       phone: json['phone'] as String?,
       companyName: json['company_name'] as String?,
+      addresses: rawAddresses is List
+          ? rawAddresses
+              .whereType<Map<String, dynamic>>()
+              .where((m) => m['id'] is String)
+              .map(CustomerAddress.fromJson)
+              .toList()
+          : const [],
     );
   }
 
@@ -38,6 +50,7 @@ class Customer {
       if (lastName != null) 'last_name': lastName,
       if (phone != null) 'phone': phone,
       if (companyName != null) 'company_name': companyName,
+      'addresses': addresses.map((a) => a.toJson()).toList(),
     };
   }
 }
