@@ -1,3 +1,5 @@
+import 'order_group.dart';
+
 /// Cart line item. Mercur stamps the `offer_id` into the item `metadata`
 /// at the Dio boundary — exposed here as a typed nullable field.
 class CustomerCartLineItem {
@@ -109,54 +111,6 @@ class CustomerCart {
       if (taxTotal != null) 'tax_total': taxTotal,
       if (discountTotal != null) 'discount_total': discountTotal,
       if (shippingTotal != null) 'shipping_total': shippingTotal,
-    };
-  }
-}
-
-/// Minimal order group as returned by cart completion.
-/// Full listing shape (`GET /store/order-groups`) lands with that tranche.
-class OrderGroup {
-  const OrderGroup({
-    required this.id,
-    this.customerId,
-    this.cartId,
-    this.sellerCount,
-    this.total,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  final String id;
-  final String? customerId;
-  final String? cartId;
-  final int? sellerCount;
-  final int? total;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-
-  factory OrderGroup.fromJson(Map<String, dynamic> json) {
-    DateTime? parseDate(Object? raw) =>
-        raw is String ? DateTime.tryParse(raw) : null;
-    return OrderGroup(
-      id: json['id'] as String,
-      customerId: json['customer_id'] as String?,
-      cartId: json['cart_id'] as String?,
-      sellerCount: (json['seller_count'] as num?)?.toInt(),
-      total: (json['total'] as num?)?.toInt(),
-      createdAt: parseDate(json['created_at']),
-      updatedAt: parseDate(json['updated_at']),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      if (customerId != null) 'customer_id': customerId,
-      if (cartId != null) 'cart_id': cartId,
-      if (sellerCount != null) 'seller_count': sellerCount,
-      if (total != null) 'total': total,
-      if (createdAt != null) 'created_at': createdAt!.toIso8601String(),
-      if (updatedAt != null) 'updated_at': updatedAt!.toIso8601String(),
     };
   }
 }

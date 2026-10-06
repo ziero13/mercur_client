@@ -1,4 +1,5 @@
 export 'customer_product_params.dart';
 export 'customer_offer_params.dart';
 export 'customer_cart_params.dart';
+export 'customer_order_group_params.dart';
 export 'customer_seller_params.dart';

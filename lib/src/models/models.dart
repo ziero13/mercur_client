@@ -1,6 +1,7 @@
 export 'customer_product.dart';
 export 'offer.dart';
 export 'customer_cart.dart';
+export 'order_group.dart';
 export 'customer.dart';
 export 'seller.dart';
 export 'pagination_params.dart';

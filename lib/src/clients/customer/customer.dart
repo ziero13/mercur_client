@@ -5,6 +5,7 @@ import '../auth_sink.dart';
 import 'auth_resource.dart';
 import 'carts_resource.dart';
 import 'offers_resource.dart';
+import 'order_groups_resource.dart';
 import 'products_resource.dart';
 import 'sellers_resource.dart';
 
@@ -15,12 +16,14 @@ class CustomerClient {
         sellers = CustomerSellersResource(dio),
         offers = CustomerOffersResource(dio),
         carts = CustomerCartsResource(dio),
+        orderGroups = CustomerOrderGroupsResource(dio),
         auth = CustomerAuthResource(dio, onCustomerToken: onCustomerToken);
 
   final CustomerProductsResource products;
   final CustomerSellersResource sellers;
   final CustomerOffersResource offers;
   final CustomerCartsResource carts;
+  final CustomerOrderGroupsResource orderGroups;
   final CustomerAuthResource auth;
 
   /// 3-step registration as one call (register → create → login).
