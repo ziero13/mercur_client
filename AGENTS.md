@@ -65,8 +65,10 @@ lib/
     │   │                         # customers_resource, auth_resource...
     │   ├── seller/               # offers, products, orders, sellers, members, payouts,
     │   │                         # payout_accounts, product_attributes, product_variants, auth...
-    │   └── admin/                # sellers, products, offers, orders, order_groups, commissions,
-    │                             # payouts, members, product_attributes, product_changes, auth...
+    │   └── admin/                # auth_resource, sellers_resource (CRUD, lifecycle :
+    │                             # approve/suspend/unsuspend/terminate/unterminate,
+    │                             # address/payment/professional upserts, members,
+    │                             # invites, products)...
     └── models/
         ├── models.dart           # entités partagées : Seller, Offer, Product, Cart, OrderGroup...
         ├── params/               # *Params (étendent PaginationParams quand liste)
@@ -120,6 +122,13 @@ lib/
   - `fields` en mode replace peut omettre des champs modélisés : `fromJson`
     n'exige que `id` (le reste retombe sur défauts neutres), et les variants
     sans `id` sont ignorés. Vérifié en live le 2026-10-06.
+  - `GET /admin/sellers/:id/members` sans `fields` ne renvoie pas de `rbac_role`
+    nested (flat `role_id` / `member_id`, comme vendor) : les deux formes décodent.
+    Vérifié en live le 2026-10-07.
+  - `POST /admin/sellers/:id/members/invite` répond 201 `{member_invite}` ;
+    `GET /admin/sellers/:id/products` → `count: 0` sur tout le seed (enveloppe
+    vide vérifiée, détail à re-prober au premier vrai produit). Vérifié en live
+    le 2026-10-07.
 
 ## Backend local (dev)
 
