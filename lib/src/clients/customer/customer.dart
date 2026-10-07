@@ -4,6 +4,7 @@ import '../../models/models.dart';
 import '../auth_sink.dart';
 import 'auth_resource.dart';
 import 'carts_resource.dart';
+import 'catalog_resource.dart';
 import 'customers_resource.dart';
 import 'offers_resource.dart';
 import 'order_groups_resource.dart';
@@ -25,6 +26,7 @@ class CustomerClient {
         regions = CustomerRegionsResource(dio),
         orders = CustomerOrdersResource(dio),
         returns = CustomerReturnsResource(dio),
+        catalog = CustomerCatalogResource(dio),
         orderGroups = CustomerOrderGroupsResource(dio),
         customers = CustomerCustomersResource(dio),
         auth = CustomerAuthResource(dio, onCustomerToken: onCustomerToken);
@@ -37,6 +39,7 @@ class CustomerClient {
   final CustomerRegionsResource regions;
   final CustomerOrdersResource orders;
   final CustomerReturnsResource returns;
+  final CustomerCatalogResource catalog;
   final CustomerOrderGroupsResource orderGroups;
   final CustomerCustomersResource customers;
   final CustomerAuthResource auth;

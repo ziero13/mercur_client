@@ -3,6 +3,7 @@ export 'offer.dart';
 export 'customer_cart.dart';
 export 'customer_shipping.dart';
 export 'customer_order.dart';
+export 'customer_catalog.dart';
 export 'order_group.dart';
 export 'customer.dart';
 export 'customer_address.dart';
