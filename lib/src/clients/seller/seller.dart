@@ -7,6 +7,7 @@ import 'catalog_resource.dart';
 import 'money_resource.dart';
 import 'offers_resource.dart';
 import 'orders_resource.dart';
+import 'pricing_resource.dart';
 import 'products_resource.dart';
 import 'rma_resource.dart';
 import 'sellers_resource.dart';
@@ -39,7 +40,8 @@ class SellerClient {
         orderEdits = SellerOrderEditsResource(dio),
         returns = SellerReturnsResource(dio),
         claims = SellerClaimsResource(dio),
-        exchanges = SellerExchangesResource(dio);
+        exchanges = SellerExchangesResource(dio),
+        pricing = SellerPricingResource(dio);
 
   final SellerAuthResource auth;
   final SellerSellersResource sellers;
@@ -58,6 +60,7 @@ class SellerClient {
   final SellerReturnsResource returns;
   final SellerClaimsResource claims;
   final SellerExchangesResource exchanges;
+  final SellerPricingResource pricing;
 
   Future<TokenRes> login(LoginReq body) => auth.login(body);
 }

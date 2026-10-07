@@ -16,6 +16,7 @@ export 'seller/money_resource.dart';
 export 'seller/stock_resource.dart';
 export 'seller/catalog_resource.dart';
 export 'seller/rma_resource.dart';
+export 'seller/pricing_resource.dart';
 export 'admin/auth_resource.dart';
 export 'auth_sink.dart';
 export 'seller/seller.dart';

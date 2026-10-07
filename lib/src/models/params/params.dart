@@ -11,3 +11,4 @@ export 'seller_order_params.dart';
 export 'seller_payment_params.dart';
 export 'seller_stock_params.dart';
 export 'seller_rma_params.dart';
+export 'seller_pricing_params.dart';
