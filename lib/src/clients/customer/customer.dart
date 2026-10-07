@@ -8,7 +8,9 @@ import 'customers_resource.dart';
 import 'offers_resource.dart';
 import 'order_groups_resource.dart';
 import 'products_resource.dart';
+import 'regions_resource.dart';
 import 'sellers_resource.dart';
+import 'shipping_options_resource.dart';
 
 /// Customer entry point — the `/store/*` surface (storefront buyer).
 class CustomerClient {
@@ -17,6 +19,8 @@ class CustomerClient {
         sellers = CustomerSellersResource(dio),
         offers = CustomerOffersResource(dio),
         carts = CustomerCartsResource(dio),
+        shippingOptions = CustomerShippingOptionsResource(dio),
+        regions = CustomerRegionsResource(dio),
         orderGroups = CustomerOrderGroupsResource(dio),
         customers = CustomerCustomersResource(dio),
         auth = CustomerAuthResource(dio, onCustomerToken: onCustomerToken);
@@ -25,6 +29,8 @@ class CustomerClient {
   final CustomerSellersResource sellers;
   final CustomerOffersResource offers;
   final CustomerCartsResource carts;
+  final CustomerShippingOptionsResource shippingOptions;
+  final CustomerRegionsResource regions;
   final CustomerOrderGroupsResource orderGroups;
   final CustomerCustomersResource customers;
   final CustomerAuthResource auth;

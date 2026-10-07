@@ -2,6 +2,8 @@ export 'customer/customer.dart';
 export 'customer/products_resource.dart';
 export 'customer/offers_resource.dart';
 export 'customer/carts_resource.dart';
+export 'customer/shipping_options_resource.dart';
+export 'customer/regions_resource.dart';
 export 'customer/order_groups_resource.dart';
 export 'customer/customers_resource.dart';
 export 'customer/sellers_resource.dart';
