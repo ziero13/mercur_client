@@ -52,8 +52,15 @@ lib/
     ├── interceptors/             # auth_interceptor, seller_scope_interceptor, error_interceptor
     ├── clients/
     │   ├── customer/             # 1 fichier/domaine : products_resource, sellers_resource,
-    │   │                         # offers_resource, carts_resource, order_groups_resource,
-    │   │                         # customers_resource, auth_resource, shipping_options_resource...
+    │   │                         # offers_resource, carts_resource (cycle complet :
+    │   │                         # retrieve/update/line-items/promos/shipping/taxes/
+    │   │                         # customer/complete), shipping_options_resource,
+    │   │                         # regions_resource, orders_resource (+transfer),
+    │   │                         # returns_resource (+return-reasons),
+    │   │                         # catalog_resource (collections/categories/tags/
+    │   │                         # types/attributes/options/variants),
+    │   │                         # misc_resource (currencies/providers/locales),
+    │   │                         # customers_resource, auth_resource...
     │   ├── seller/               # offers, products, orders, sellers, members, payouts,
     │   │                         # payout_accounts, product_attributes, product_variants, auth...
     │   └── admin/                # sellers, products, offers, orders, order_groups, commissions,
@@ -98,6 +105,13 @@ lib/
   - `GET /store/order-groups` sans `fields` → 400 : `fields` restreints par défaut.
   - `POST /store/carts/:id/line-items` prend `offer_id`, jamais `variant_id`.
   - `POST /store/carts/:id/complete` splitte en commandes par vendeur (order group).
+  - `POST /store/carts/:id/taxes` exige un pays (`shipping_address.country_code`), 400 sinon.
+  - `GET /store/shipping-options` renvoie une MAP `{seller_id: [...]}` (vide si panier vide) ;
+    `POST …/:id/calculate` → 500 serveur sur le seed (bug backend, client inchangé).
+  - `GET /store/product-variants` exige une clé publishable à sales channel (400 sinon).
+  - `GET /store/locales` → 404 sauf flag backend `translation` actif.
+  - `POST /store/orders/:id/transfer/request` sur sa propre commande → 400
+    (`already belongs to customer`) : cycle accept/decline à re-prober sur un vrai transfert.
   - `fields` en mode replace peut omettre des champs modélisés : `fromJson`
     n'exige que `id` (le reste retombe sur défauts neutres), et les variants
     sans `id` sont ignorés. Vérifié en live le 2026-10-06.
