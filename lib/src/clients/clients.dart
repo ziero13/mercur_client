@@ -7,6 +7,7 @@ export 'customer/regions_resource.dart';
 export 'customer/orders_resource.dart';
 export 'customer/returns_resource.dart';
 export 'customer/catalog_resource.dart';
+export 'customer/misc_resource.dart';
 export 'customer/order_groups_resource.dart';
 export 'customer/customers_resource.dart';
 export 'customer/sellers_resource.dart';

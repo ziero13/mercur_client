@@ -4,6 +4,7 @@ export 'customer_cart_params.dart';
 export 'customer_shipping_params.dart';
 export 'customer_order_params.dart';
 export 'customer_catalog_params.dart';
+export 'customer_misc_params.dart';
 export 'customer_order_group_params.dart';
 export 'customer_customer_params.dart';
 export 'customer_seller_params.dart';

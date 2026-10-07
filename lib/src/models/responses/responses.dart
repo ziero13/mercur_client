@@ -4,6 +4,7 @@ export 'customer_cart_responses.dart';
 export 'customer_shipping_responses.dart';
 export 'customer_order_responses.dart';
 export 'customer_catalog_responses.dart';
+export 'customer_misc_responses.dart';
 export 'customer_order_group_responses.dart';
 export 'customer_customer_responses.dart';
 export 'customer_seller_responses.dart';
