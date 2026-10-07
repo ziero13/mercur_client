@@ -7,6 +7,7 @@ export 'customer_address.dart';
 export 'seller.dart';
 export 'seller_details.dart';
 export 'seller_member.dart';
+export 'seller_product.dart';
 export 'pagination_params.dart';
 export 'enums/enums.dart';
 export 'headers/headers.dart';

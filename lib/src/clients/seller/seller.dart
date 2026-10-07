@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import '../../models/models.dart';
 import '../auth_sink.dart';
 import 'auth_resource.dart';
+import 'products_resource.dart';
 import 'sellers_resource.dart';
 import 'team_resource.dart';
 
@@ -19,12 +20,14 @@ class SellerClient {
           onSellerSelected: onSellerSelected,
         ),
         team = SellerTeamResource(dio),
-        members = SellerMembersResource(dio);
+        members = SellerMembersResource(dio),
+        products = SellerProductsResource(dio);
 
   final SellerAuthResource auth;
   final SellerSellersResource sellers;
   final SellerTeamResource team;
   final SellerMembersResource members;
+  final SellerProductsResource products;
 
   Future<TokenRes> login(LoginReq body) => auth.login(body);
 }

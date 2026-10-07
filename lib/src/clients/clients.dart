@@ -9,6 +9,7 @@ export 'customer/auth_resource.dart';
 export 'seller/auth_resource.dart';
 export 'seller/sellers_resource.dart';
 export 'seller/team_resource.dart';
+export 'seller/products_resource.dart';
 export 'admin/auth_resource.dart';
 export 'auth_sink.dart';
 export 'seller/seller.dart';
