@@ -24,6 +24,13 @@ class Seller {
     this.address,
     this.paymentDetails,
     this.professionalDetails,
+    // Admin-only enrichments (absent on store/vendor payloads).
+    this.externalId,
+    this.statusReason,
+    this.rejectedAt,
+    this.closedFrom,
+    this.closedTo,
+    this.closureNote,
   });
 
   final String id;
@@ -43,6 +50,12 @@ class Seller {
   final SellerAddress? address;
   final SellerPaymentDetails? paymentDetails;
   final SellerProfessionalDetails? professionalDetails;
+  final String? externalId;
+  final String? statusReason;
+  final String? rejectedAt;
+  final String? closedFrom;
+  final String? closedTo;
+  final String? closureNote;
 
   /// Only `id` is required; missing display fields (partial `fields`
   /// selection) fall back to empty strings rather than throwing.
@@ -74,6 +87,12 @@ class Seller {
               ? SellerProfessionalDetails.fromJson(
                   json['professional_details'] as Map<String, dynamic>)
               : null,
+      externalId: json['external_id'] as String?,
+      statusReason: json['status_reason'] as String?,
+      rejectedAt: json['rejected_at'] as String?,
+      closedFrom: json['closed_from'] as String?,
+      closedTo: json['closed_to'] as String?,
+      closureNote: json['closure_note'] as String?,
     );
   }
 
@@ -97,6 +116,12 @@ class Seller {
       if (paymentDetails != null) 'payment_details': paymentDetails!.toJson(),
       if (professionalDetails != null)
         'professional_details': professionalDetails!.toJson(),
+      if (externalId != null) 'external_id': externalId,
+      if (statusReason != null) 'status_reason': statusReason,
+      if (rejectedAt != null) 'rejected_at': rejectedAt,
+      if (closedFrom != null) 'closed_from': closedFrom,
+      if (closedTo != null) 'closed_to': closedTo,
+      if (closureNote != null) 'closure_note': closureNote,
     };
   }
 }

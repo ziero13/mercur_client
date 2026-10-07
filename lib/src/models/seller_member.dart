@@ -137,6 +137,7 @@ class MemberInvite {
     this.email,
     this.roleId,
     this.accepted,
+    this.token,
     this.expiresAt,
   });
 
@@ -144,6 +145,7 @@ class MemberInvite {
   final String? email;
   final String? roleId;
   final bool? accepted;
+  final String? token;
   final String? expiresAt;
 
   factory MemberInvite.fromJson(Map<String, dynamic> json) {
@@ -152,6 +154,7 @@ class MemberInvite {
       email: json['email'] as String?,
       roleId: json['role_id'] as String?,
       accepted: json['accepted'] as bool?,
+      token: json['token'] as String?,
       expiresAt: json['expires_at'] as String?,
     );
   }
@@ -162,6 +165,7 @@ class MemberInvite {
       if (email != null) 'email': email,
       if (roleId != null) 'role_id': roleId,
       if (accepted != null) 'accepted': accepted,
+      if (token != null) 'token': token,
       if (expiresAt != null) 'expires_at': expiresAt,
     };
   }
