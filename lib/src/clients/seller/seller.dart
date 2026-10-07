@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import '../../models/models.dart';
 import '../auth_sink.dart';
 import 'auth_resource.dart';
+import 'catalog_resource.dart';
 import 'money_resource.dart';
 import 'offers_resource.dart';
 import 'orders_resource.dart';
@@ -31,7 +32,9 @@ class SellerClient {
         payments = SellerPaymentsResource(dio),
         payouts = SellerPayoutsResource(dio),
         stock = SellerStockResource(dio),
-        shipping = SellerShippingResource(dio);
+        shipping = SellerShippingResource(dio),
+        catalog = SellerCatalogResource(dio),
+        misc = SellerMiscResource(dio);
 
   final SellerAuthResource auth;
   final SellerSellersResource sellers;
@@ -44,6 +47,8 @@ class SellerClient {
   final SellerPayoutsResource payouts;
   final SellerStockResource stock;
   final SellerShippingResource shipping;
+  final SellerCatalogResource catalog;
+  final SellerMiscResource misc;
 
   Future<TokenRes> login(LoginReq body) => auth.login(body);
 }
