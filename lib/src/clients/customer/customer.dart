@@ -7,8 +7,10 @@ import 'carts_resource.dart';
 import 'customers_resource.dart';
 import 'offers_resource.dart';
 import 'order_groups_resource.dart';
+import 'orders_resource.dart';
 import 'products_resource.dart';
 import 'regions_resource.dart';
+import 'returns_resource.dart';
 import 'sellers_resource.dart';
 import 'shipping_options_resource.dart';
 
@@ -21,6 +23,8 @@ class CustomerClient {
         carts = CustomerCartsResource(dio),
         shippingOptions = CustomerShippingOptionsResource(dio),
         regions = CustomerRegionsResource(dio),
+        orders = CustomerOrdersResource(dio),
+        returns = CustomerReturnsResource(dio),
         orderGroups = CustomerOrderGroupsResource(dio),
         customers = CustomerCustomersResource(dio),
         auth = CustomerAuthResource(dio, onCustomerToken: onCustomerToken);
@@ -31,6 +35,8 @@ class CustomerClient {
   final CustomerCartsResource carts;
   final CustomerShippingOptionsResource shippingOptions;
   final CustomerRegionsResource regions;
+  final CustomerOrdersResource orders;
+  final CustomerReturnsResource returns;
   final CustomerOrderGroupsResource orderGroups;
   final CustomerCustomersResource customers;
   final CustomerAuthResource auth;
