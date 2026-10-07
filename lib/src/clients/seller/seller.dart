@@ -4,6 +4,7 @@ import '../../models/models.dart';
 import '../auth_sink.dart';
 import 'auth_resource.dart';
 import 'offers_resource.dart';
+import 'orders_resource.dart';
 import 'products_resource.dart';
 import 'sellers_resource.dart';
 import 'team_resource.dart';
@@ -23,7 +24,8 @@ class SellerClient {
         team = SellerTeamResource(dio),
         members = SellerMembersResource(dio),
         products = SellerProductsResource(dio),
-        offers = SellerOffersResource(dio);
+        offers = SellerOffersResource(dio),
+        orders = SellerOrdersResource(dio);
 
   final SellerAuthResource auth;
   final SellerSellersResource sellers;
@@ -31,6 +33,7 @@ class SellerClient {
   final SellerMembersResource members;
   final SellerProductsResource products;
   final SellerOffersResource offers;
+  final SellerOrdersResource orders;
 
   Future<TokenRes> login(LoginReq body) => auth.login(body);
 }
