@@ -9,6 +9,7 @@ export 'seller_details.dart';
 export 'seller_member.dart';
 export 'seller_product.dart';
 export 'seller_order.dart';
+export 'seller_payment.dart';
 export 'pagination_params.dart';
 export 'enums/enums.dart';
 export 'headers/headers.dart';

@@ -8,3 +8,4 @@ export 'seller_seller_params.dart';
 export 'seller_product_params.dart';
 export 'seller_offer_params.dart';
 export 'seller_order_params.dart';
+export 'seller_payment_params.dart';
