@@ -8,3 +8,4 @@ export 'seller_product_requests.dart';
 export 'seller_offer_requests.dart';
 export 'seller_order_requests.dart';
 export 'seller_payment_requests.dart';
+export 'seller_stock_requests.dart';

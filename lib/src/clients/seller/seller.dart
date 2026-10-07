@@ -8,6 +8,7 @@ import 'offers_resource.dart';
 import 'orders_resource.dart';
 import 'products_resource.dart';
 import 'sellers_resource.dart';
+import 'stock_resource.dart';
 import 'team_resource.dart';
 
 /// Seller entry point — the `/vendor/*` surface.
@@ -28,7 +29,9 @@ class SellerClient {
         offers = SellerOffersResource(dio),
         orders = SellerOrdersResource(dio),
         payments = SellerPaymentsResource(dio),
-        payouts = SellerPayoutsResource(dio);
+        payouts = SellerPayoutsResource(dio),
+        stock = SellerStockResource(dio),
+        shipping = SellerShippingResource(dio);
 
   final SellerAuthResource auth;
   final SellerSellersResource sellers;
@@ -39,6 +42,8 @@ class SellerClient {
   final SellerOrdersResource orders;
   final SellerPaymentsResource payments;
   final SellerPayoutsResource payouts;
+  final SellerStockResource stock;
+  final SellerShippingResource shipping;
 
   Future<TokenRes> login(LoginReq body) => auth.login(body);
 }

@@ -11,3 +11,4 @@ export 'seller_product_responses.dart';
 export 'seller_offer_responses.dart';
 export 'seller_order_responses.dart';
 export 'seller_payment_responses.dart';
+export 'seller_stock_responses.dart';

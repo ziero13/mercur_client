@@ -13,6 +13,7 @@ export 'seller/products_resource.dart';
 export 'seller/offers_resource.dart';
 export 'seller/orders_resource.dart';
 export 'seller/money_resource.dart';
+export 'seller/stock_resource.dart';
 export 'admin/auth_resource.dart';
 export 'auth_sink.dart';
 export 'seller/seller.dart';
