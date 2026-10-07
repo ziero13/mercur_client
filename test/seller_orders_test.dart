@@ -59,7 +59,7 @@ void main() {
                 {'id': 'ordli_01', 'title': 'Runner 42', 'quantity': 1},
               ],
               'shipping_address': {'city': 'Berlin', 'country_code': 'de'},
-              'summary': {'subtotal': 9900, 'total': 9900},
+              'summary': {'current_order_total': 9900, 'paid_total': 0},
             },
           },
           onRequest: (_) {},
@@ -70,7 +70,7 @@ void main() {
       expect(res.order.displayId, equals(1001));
       expect(res.order.items.first.title, equals('Runner 42'));
       expect(res.order.shippingAddress?.city, equals('Berlin'));
-      expect(res.order.summary?.total, equals(9900));
+      expect(res.order.summary?.currentOrderTotal, equals(9900));
     });
 
     test('createFulfillment POSTs items + location', () async {

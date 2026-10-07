@@ -12,6 +12,7 @@ export 'seller_order.dart';
 export 'seller_payment.dart';
 export 'seller_stock.dart';
 export 'seller_catalog.dart';
+export 'seller_rma.dart';
 export 'pagination_params.dart';
 export 'enums/enums.dart';
 export 'headers/headers.dart';

@@ -45,44 +45,51 @@ class SellerOrderItem {
   }
 }
 
-/// Order totals summary (all totals nullable — shape varies by fields).
+/// Order totals summary (live wire keys, all nullable).
 class SellerOrderSummary {
   const SellerOrderSummary({
-    this.subtotal,
-    this.shippingSubtotal,
-    this.taxTotal,
-    this.discountTotal,
-    this.total,
+    this.currentOrderTotal,
+    this.originalOrderTotal,
     this.paidTotal,
+    this.transactionTotal,
+    this.refundedTotal,
+    this.pendingDifference,
+    this.accountingTotal,
   });
 
-  final int? subtotal;
-  final int? shippingSubtotal;
-  final int? taxTotal;
-  final int? discountTotal;
-  final int? total;
+  final int? currentOrderTotal;
+  final int? originalOrderTotal;
   final int? paidTotal;
+  final int? transactionTotal;
+  final int? refundedTotal;
+  final int? pendingDifference;
+  final int? accountingTotal;
 
   factory SellerOrderSummary.fromJson(Map<String, dynamic> json) {
     int? n(Object? v) => (v as num?)?.toInt();
     return SellerOrderSummary(
-      subtotal: n(json['subtotal']),
-      shippingSubtotal: n(json['shipping_subtotal']),
-      taxTotal: n(json['tax_total']),
-      discountTotal: n(json['discount_total']),
-      total: n(json['total']),
+      currentOrderTotal: n(json['current_order_total']),
+      originalOrderTotal: n(json['original_order_total']),
       paidTotal: n(json['paid_total']),
+      transactionTotal: n(json['transaction_total']),
+      refundedTotal: n(json['refunded_total']),
+      pendingDifference: n(json['pending_difference']),
+      accountingTotal: n(json['accounting_total']),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      if (subtotal != null) 'subtotal': subtotal,
-      if (shippingSubtotal != null) 'shipping_subtotal': shippingSubtotal,
-      if (taxTotal != null) 'tax_total': taxTotal,
-      if (discountTotal != null) 'discount_total': discountTotal,
-      if (total != null) 'total': total,
+      if (currentOrderTotal != null)
+        'current_order_total': currentOrderTotal,
+      if (originalOrderTotal != null)
+        'original_order_total': originalOrderTotal,
       if (paidTotal != null) 'paid_total': paidTotal,
+      if (transactionTotal != null) 'transaction_total': transactionTotal,
+      if (refundedTotal != null) 'refunded_total': refundedTotal,
+      if (pendingDifference != null)
+        'pending_difference': pendingDifference,
+      if (accountingTotal != null) 'accounting_total': accountingTotal,
     };
   }
 }
@@ -103,6 +110,9 @@ class SellerOrder {
     this.regionId,
     this.customerId,
     this.salesChannelId,
+    this.fulfillmentStatus,
+    this.paymentStatus,
+    this.version,
     this.items = const [],
     this.shippingAddress,
     this.billingAddress,
@@ -121,6 +131,9 @@ class SellerOrder {
   final String? regionId;
   final String? customerId;
   final String? salesChannelId;
+  final String? fulfillmentStatus;
+  final String? paymentStatus;
+  final int? version;
   final List<SellerOrderItem> items;
   final SellerAddress? shippingAddress;
   final SellerAddress? billingAddress;
@@ -143,6 +156,9 @@ class SellerOrder {
       regionId: json['region_id'] as String?,
       customerId: json['customer_id'] as String?,
       salesChannelId: json['sales_channel_id'] as String?,
+      fulfillmentStatus: json['fulfillment_status'] as String?,
+      paymentStatus: json['payment_status'] as String?,
+      version: (json['version'] as num?)?.toInt(),
       items: rawItems is List
           ? rawItems
               .whereType<Map<String, dynamic>>()
@@ -173,6 +189,9 @@ class SellerOrder {
       if (regionId != null) 'region_id': regionId,
       if (customerId != null) 'customer_id': customerId,
       if (salesChannelId != null) 'sales_channel_id': salesChannelId,
+      if (fulfillmentStatus != null) 'fulfillment_status': fulfillmentStatus,
+      if (paymentStatus != null) 'payment_status': paymentStatus,
+      if (version != null) 'version': version,
       'items': items.map((i) => i.toJson()).toList(),
       if (shippingAddress != null)
         'shipping_address': shippingAddress!.toJson(),
