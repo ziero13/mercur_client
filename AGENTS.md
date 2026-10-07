@@ -60,6 +60,8 @@ lib/
     │   │                         # catalog_resource (collections/categories/tags/
     │   │                         # types/attributes/options/variants),
     │   │                         # misc_resource (currencies/providers/locales),
+    │   │                         # payments_resource (payment-collections +
+    │   │                         # payment-sessions : checkout payment step),
     │   │                         # customers_resource, auth_resource...
     │   ├── seller/               # offers, products, orders, sellers, members, payouts,
     │   │                         # payout_accounts, product_attributes, product_variants, auth...
@@ -102,6 +104,9 @@ lib/
 - Scoping vendeur : header `x-seller-id` OU session via `POST /vendor/sellers/select`.
   Sans scoping, `GET /vendor/sellers` renvoie les memberships (choix du vendeur).
 - **Quirks encodés, pas contournés à l'usage** :
+  - `POST /store/payment-collections` est idempotent (retourne la collection
+    existante du panier) ; les deux POST répondent `{payment_collection}`.
+    Vérifié en live le 2026-10-07.
   - `GET /store/order-groups` sans `fields` → 400 : `fields` restreints par défaut.
   - `POST /store/carts/:id/line-items` prend `offer_id`, jamais `variant_id`.
   - `POST /store/carts/:id/complete` splitte en commandes par vendeur (order group).

@@ -11,6 +11,7 @@ export 'customer/misc_resource.dart';
 export 'customer/order_groups_resource.dart';
 export 'customer/customers_resource.dart';
 export 'customer/sellers_resource.dart';
+export 'customer/payments_resource.dart';
 export 'customer/auth_resource.dart';
 export 'seller/auth_resource.dart';
 export 'seller/sellers_resource.dart';

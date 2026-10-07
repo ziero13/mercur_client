@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import '../../models/models.dart';
 
 /// Store misc reads (all read-only): currencies, locales, payment
-/// provider listing (collections/sessions stay out of scope).
+/// provider listing (payment collections live in `CustomerPaymentsResource`).
 class CustomerMiscResource {
   CustomerMiscResource(this._dio);
 

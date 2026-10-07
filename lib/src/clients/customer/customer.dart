@@ -9,6 +9,7 @@ import 'misc_resource.dart';
 import 'customers_resource.dart';
 import 'offers_resource.dart';
 import 'order_groups_resource.dart';
+import 'payments_resource.dart';
 import 'orders_resource.dart';
 import 'products_resource.dart';
 import 'regions_resource.dart';
@@ -30,6 +31,7 @@ class CustomerClient {
         catalog = CustomerCatalogResource(dio),
         misc = CustomerMiscResource(dio),
         orderGroups = CustomerOrderGroupsResource(dio),
+        payments = CustomerPaymentsResource(dio),
         customers = CustomerCustomersResource(dio),
         auth = CustomerAuthResource(dio, onCustomerToken: onCustomerToken);
 
@@ -44,6 +46,7 @@ class CustomerClient {
   final CustomerCatalogResource catalog;
   final CustomerMiscResource misc;
   final CustomerOrderGroupsResource orderGroups;
+  final CustomerPaymentsResource payments;
   final CustomerCustomersResource customers;
   final CustomerAuthResource auth;
 
