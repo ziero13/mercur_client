@@ -5,3 +5,4 @@ export 'customer_order_group_responses.dart';
 export 'customer_customer_responses.dart';
 export 'customer_seller_responses.dart';
 export 'auth_responses.dart';
+export 'seller_seller_responses.dart';

@@ -31,7 +31,11 @@ class Mercur {
       customerDio,
       onCustomerToken: setCustomerToken,
     );
-    seller = SellerClient(sellerDio, onMemberToken: setMemberToken);
+    seller = SellerClient(
+      sellerDio,
+      onMemberToken: setMemberToken,
+      onSellerSelected: setSellerId,
+    );
     admin = AdminClient(adminDio, onUserToken: setUserToken);
   }
 
