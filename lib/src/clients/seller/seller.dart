@@ -4,6 +4,7 @@ import '../../models/models.dart';
 import '../auth_sink.dart';
 import 'auth_resource.dart';
 import 'sellers_resource.dart';
+import 'team_resource.dart';
 
 /// Seller entry point — the `/vendor/*` surface.
 ///
@@ -16,10 +17,14 @@ class SellerClient {
         sellers = SellerSellersResource(
           dio,
           onSellerSelected: onSellerSelected,
-        );
+        ),
+        team = SellerTeamResource(dio),
+        members = SellerMembersResource(dio);
 
   final SellerAuthResource auth;
   final SellerSellersResource sellers;
+  final SellerTeamResource team;
+  final SellerMembersResource members;
 
   Future<TokenRes> login(LoginReq body) => auth.login(body);
 }

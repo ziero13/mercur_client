@@ -1,3 +1,5 @@
+import 'seller_details.dart';
+
 /// Seller as exposed on the Store surface (`GET /store/sellers`).
 ///
 /// Shared entity: identical shape on all three surfaces, so it lives
@@ -19,6 +21,9 @@ class Seller {
     this.status,
     this.approvedAt,
     this.metadata,
+    this.address,
+    this.paymentDetails,
+    this.professionalDetails,
   });
 
   final String id;
@@ -35,6 +40,9 @@ class Seller {
   final String? status;
   final String? approvedAt;
   final Map<String, dynamic>? metadata;
+  final SellerAddress? address;
+  final SellerPaymentDetails? paymentDetails;
+  final SellerProfessionalDetails? professionalDetails;
 
   /// Only `id` is required; missing display fields (partial `fields`
   /// selection) fall back to empty strings rather than throwing.
@@ -54,6 +62,18 @@ class Seller {
       status: json['status'] as String?,
       approvedAt: json['approved_at'] as String?,
       metadata: json['metadata'] as Map<String, dynamic>?,
+      address: json['address'] is Map<String, dynamic>
+          ? SellerAddress.fromJson(json['address'] as Map<String, dynamic>)
+          : null,
+      paymentDetails: json['payment_details'] is Map<String, dynamic>
+          ? SellerPaymentDetails.fromJson(
+              json['payment_details'] as Map<String, dynamic>)
+          : null,
+      professionalDetails:
+          json['professional_details'] is Map<String, dynamic>
+              ? SellerProfessionalDetails.fromJson(
+                  json['professional_details'] as Map<String, dynamic>)
+              : null,
     );
   }
 
@@ -73,6 +93,10 @@ class Seller {
       if (status != null) 'status': status,
       if (approvedAt != null) 'approved_at': approvedAt,
       if (metadata != null) 'metadata': metadata,
+      if (address != null) 'address': address!.toJson(),
+      if (paymentDetails != null) 'payment_details': paymentDetails!.toJson(),
+      if (professionalDetails != null)
+        'professional_details': professionalDetails!.toJson(),
     };
   }
 }
