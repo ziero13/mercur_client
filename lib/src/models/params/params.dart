@@ -6,3 +6,4 @@ export 'customer_customer_params.dart';
 export 'customer_seller_params.dart';
 export 'seller_seller_params.dart';
 export 'seller_product_params.dart';
+export 'seller_offer_params.dart';

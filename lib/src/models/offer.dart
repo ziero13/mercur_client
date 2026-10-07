@@ -154,6 +154,39 @@ class CalculatedPrice {
   }
 }
 
+/// Inventory link embedded on a vendor offer.
+class OfferInventoryLink {
+  const OfferInventoryLink({
+    this.id,
+    this.inventoryItemId,
+    this.requiredQuantity,
+    this.sku,
+  });
+
+  final String? id;
+  final String? inventoryItemId;
+  final int? requiredQuantity;
+  final String? sku;
+
+  factory OfferInventoryLink.fromJson(Map<String, dynamic> json) {
+    return OfferInventoryLink(
+      id: json['id'] as String?,
+      inventoryItemId: json['inventory_item_id'] as String?,
+      requiredQuantity: (json['required_quantity'] as num?)?.toInt(),
+      sku: json['sku'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      if (id != null) 'id': id,
+      if (inventoryItemId != null) 'inventory_item_id': inventoryItemId,
+      if (requiredQuantity != null) 'required_quantity': requiredQuantity,
+      if (sku != null) 'sku': sku,
+    };
+  }
+}
+
 /// Seller offer — a seller's sellable listing against a master product.
 ///
 /// Shared entity (same `id` key on all surfaces; surface-specific computed
@@ -176,6 +209,10 @@ class Offer {
     this.calculatedPrice,
     this.inventoryQuantity,
     this.inStock,
+    this.manageInventory,
+    this.allowBackorder,
+    this.inventoryItems = const [],
+    this.metadata,
     this.createdAt,
     this.updatedAt,
   });
@@ -195,6 +232,10 @@ class Offer {
   final CalculatedPrice? calculatedPrice;
   final int? inventoryQuantity;
   final bool? inStock;
+  final bool? manageInventory;
+  final bool? allowBackorder;
+  final List<OfferInventoryLink> inventoryItems;
+  final Map<String, dynamic>? metadata;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -213,6 +254,7 @@ class Offer {
 
     final rawPrices = json['prices'];
     final rawCalc = json['calculated_price'];
+    final rawLinks = json['inventory_items'];
     return Offer(
       id: json['id'] as String,
       sellerId: json['seller_id'] as String?,
@@ -236,6 +278,15 @@ class Offer {
           rawCalc is Map<String, dynamic> ? CalculatedPrice.fromJson(rawCalc) : null,
       inventoryQuantity: (json['inventory_quantity'] as num?)?.toInt(),
       inStock: json['in_stock'] as bool?,
+      manageInventory: json['manage_inventory'] as bool?,
+      allowBackorder: json['allow_backorder'] as bool?,
+      inventoryItems: rawLinks is List
+          ? rawLinks
+              .whereType<Map<String, dynamic>>()
+              .map(OfferInventoryLink.fromJson)
+              .toList()
+          : const [],
+      metadata: json['metadata'] as Map<String, dynamic>?,
       createdAt: parseDate(json['created_at']),
       updatedAt: parseDate(json['updated_at']),
     );
@@ -261,6 +312,10 @@ class Offer {
       if (inventoryQuantity != null)
         'inventory_quantity': inventoryQuantity,
       if (inStock != null) 'in_stock': inStock,
+      if (manageInventory != null) 'manage_inventory': manageInventory,
+      if (allowBackorder != null) 'allow_backorder': allowBackorder,
+      'inventory_items': inventoryItems.map((l) => l.toJson()).toList(),
+      if (metadata != null) 'metadata': metadata,
       if (createdAt != null) 'created_at': createdAt!.toIso8601String(),
       if (updatedAt != null) 'updated_at': updatedAt!.toIso8601String(),
     };

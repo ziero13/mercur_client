@@ -5,3 +5,4 @@ export 'auth_requests.dart';
 export 'seller_seller_requests.dart';
 export 'seller_team_requests.dart';
 export 'seller_product_requests.dart';
+export 'seller_offer_requests.dart';
