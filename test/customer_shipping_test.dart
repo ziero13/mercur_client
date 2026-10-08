@@ -46,6 +46,25 @@ void main() {
       expect(back.currencyCode, equals('eur'));
       expect(back.countries.single.iso2, equals('fr'));
     });
+
+    test('country round-trips full wire shape', () {
+      const country = CustomerCountry(
+        iso2: 'fr',
+        iso3: 'fra',
+        numCode: '250',
+        name: 'FRANCE',
+        displayName: 'France',
+        regionId: 'reg_01',
+      );
+      final back = CustomerCountry.fromJson(
+        country.toJson(),
+      );
+      expect(back.iso3, equals('fra'));
+      expect(back.numCode, equals('250'));
+      expect(back.name, equals('FRANCE'));
+      expect(back.displayName, equals('France'));
+      expect(back.regionId, equals('reg_01'));
+    });
   });
 
   group('CustomerShippingOptionsResource', () {

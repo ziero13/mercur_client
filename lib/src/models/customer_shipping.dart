@@ -56,27 +56,47 @@ class CustomerShippingOption {
   }
 }
 
-/// Store region country row.
+/// Store region country row (`GET /store/regions*` → `countries[]`).
+///
+/// Wire fields verified live against the backend: `iso_2`, `iso_3`,
+/// `num_code`, `name`, `display_name`, `region_id`. Only `iso_2` is
+/// required — partial `fields` selections fall back to null.
 class CustomerCountry {
   const CustomerCountry({
     required this.iso2,
+    this.iso3,
+    this.numCode,
+    this.name,
     this.displayName,
+    this.regionId,
   });
 
   final String iso2;
+  final String? iso3;
+  final String? numCode;
+  final String? name;
   final String? displayName;
+  final String? regionId;
 
   factory CustomerCountry.fromJson(Map<String, dynamic> json) {
     return CustomerCountry(
       iso2: json['iso_2'] as String,
+      iso3: json['iso_3'] as String?,
+      numCode: json['num_code'] as String?,
+      name: json['name'] as String?,
       displayName: json['display_name'] as String?,
+      regionId: json['region_id'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'iso_2': iso2,
+      if (iso3 != null) 'iso_3': iso3,
+      if (numCode != null) 'num_code': numCode,
+      if (name != null) 'name': name,
       if (displayName != null) 'display_name': displayName,
+      if (regionId != null) 'region_id': regionId,
     };
   }
 }
