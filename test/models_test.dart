@@ -122,6 +122,27 @@ void main() {
       ]));
     });
 
+    test('SellerCreateProductReq with variants', () {
+      const req = SellerCreateProductReq(
+        title: 'Sac',
+        variants: [
+          SellerVariantReq(
+            title: 'Rouge / M',
+            options: {'Couleur': 'Rouge', 'Taille': 'M'},
+            variantRank: 0,
+          ),
+        ],
+      );
+      final json = req.toJson();
+      expect(json['variants'], equals([
+        {
+          'title': 'Rouge / M',
+          'options': {'Couleur': 'Rouge', 'Taille': 'M'},
+          'variant_rank': 0,
+        },
+      ]));
+    });
+
     test('Seller', () {
       const seller = Seller(
         id: 'sel_01',

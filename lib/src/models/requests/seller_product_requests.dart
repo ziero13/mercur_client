@@ -66,6 +66,7 @@ class SellerCreateProductReq {
     this.categoryIds = const [],
     this.tagIds = const [],
     this.attributes = const [],
+    this.variants = const [],
   });
 
   final String title;
@@ -87,6 +88,9 @@ class SellerCreateProductReq {
   /// Attributs initiaux (référencés ou inline, parité web).
   final List<SellerCreateProductAttribute> attributes;
 
+  /// Variants initiaux (génération cartésienne, parité web).
+  final List<SellerVariantReq> variants;
+
   Map<String, dynamic> toJson() {
     return {
       'title': title,
@@ -107,6 +111,8 @@ class SellerCreateProductReq {
         'tags': tagIds.map((id) => {'id': id}).toList(),
       if (attributes.isNotEmpty)
         'attributes': attributes.map((a) => a.toJson()).toList(),
+      if (variants.isNotEmpty)
+        'variants': variants.map((v) => v.toJson()).toList(),
     };
   }
 }
