@@ -107,6 +107,21 @@ void main() {
       expect(attr.allValues, hasLength(2));
     });
 
+    test('SellerCreateProductReq with attributes', () {
+      const req = SellerCreateProductReq(
+        title: 'Sac',
+        attributes: [
+          SellerCreateProductAttribute(id: 'a1', value: 'rouge'),
+          SellerCreateProductAttribute(title: 'Motif', type: 'text'),
+        ],
+      );
+      final json = req.toJson();
+      expect(json['attributes'], equals([
+        {'id': 'a1', 'value': 'rouge'},
+        {'title': 'Motif', 'type': 'text'},
+      ]));
+    });
+
     test('Seller', () {
       const seller = Seller(
         id: 'sel_01',

@@ -1,5 +1,54 @@
 import '../seller_product.dart';
 
+/// One `attributes[]` entry of `POST /vendor/products` (vérifié :
+/// `UnifiedProductAttributeInput` — forme référençant un attribut
+/// existant OU inline).
+class SellerCreateProductAttribute {
+  const SellerCreateProductAttribute({
+    this.id,
+    this.valueIds = const [],
+    this.value,
+    this.title,
+    this.type,
+    this.values = const [],
+    this.isVariantAxis,
+    this.isFilterable,
+    this.isRequired,
+  });
+
+  /// Référence un attribut existant (`{id, value_ids[]?, value?}`).
+  final String? id;
+  final List<String> valueIds;
+  final Object? value;
+
+  /// Attribut inline (`{title, type?, values[]?, value?, ...}`).
+  final String? title;
+  final String? type;
+  final List<String> values;
+  final bool? isVariantAxis;
+  final bool? isFilterable;
+  final bool? isRequired;
+
+  Map<String, dynamic> toJson() {
+    if (id != null) {
+      return {
+        'id': id,
+        if (valueIds.isNotEmpty) 'value_ids': valueIds,
+        if (value != null) 'value': value,
+      };
+    }
+    return {
+      if (title != null) 'title': title,
+      if (type != null) 'type': type,
+      if (values.isNotEmpty) 'values': values,
+      if (value != null) 'value': value,
+      if (isVariantAxis != null) 'is_variant_axis': isVariantAxis,
+      if (isFilterable != null) 'is_filterable': isFilterable,
+      if (isRequired != null) 'is_required': isRequired,
+    };
+  }
+}
+
 /// Body of `POST /vendor/products`.
 class SellerCreateProductReq {
   const SellerCreateProductReq({
@@ -16,6 +65,7 @@ class SellerCreateProductReq {
     this.collectionId,
     this.categoryIds = const [],
     this.tagIds = const [],
+    this.attributes = const [],
   });
 
   final String title;
@@ -33,6 +83,9 @@ class SellerCreateProductReq {
   /// `categories: [{id}]` / `tags: [{id}]` (parité web).
   final List<String> categoryIds;
   final List<String> tagIds;
+
+  /// Attributs initiaux (référencés ou inline, parité web).
+  final List<SellerCreateProductAttribute> attributes;
 
   Map<String, dynamic> toJson() {
     return {
@@ -52,6 +105,8 @@ class SellerCreateProductReq {
         'categories': categoryIds.map((id) => {'id': id}).toList(),
       if (tagIds.isNotEmpty)
         'tags': tagIds.map((id) => {'id': id}).toList(),
+      if (attributes.isNotEmpty)
+        'attributes': attributes.map((a) => a.toJson()).toList(),
     };
   }
 }
