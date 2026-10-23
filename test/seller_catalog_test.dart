@@ -85,6 +85,38 @@ void main() {
       expect(res.records.first.isVariantAxis, isTrue);
     });
 
+    test('attributes forward category_id filter', () async {
+      RequestOptions? captured;
+      final dio = Dio(BaseOptions(baseUrl: 'http://localhost:9000'));
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            captured = options;
+            handler.resolve(
+              Response(
+                requestOptions: options,
+                statusCode: 200,
+                data: {
+                  'product_attributes': [],
+                  'count': 0,
+                  'offset': 0,
+                  'limit': 50,
+                },
+              ),
+            );
+          },
+        ),
+      );
+      final resource = SellerCatalogResource(dio);
+
+      await resource.attributes(null, 'pcat_01');
+      expect(captured?.path, equals('/vendor/product-attributes'));
+      expect(
+        captured?.queryParameters['category_id'],
+        equals('pcat_01'),
+      );
+    });
+
     test('tags empty seed', () async {
       final resource = SellerCatalogResource(
         stubCatalogDio(
