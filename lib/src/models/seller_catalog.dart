@@ -67,6 +67,32 @@ class SellerCategory {
   }
 }
 
+/// Valeur d'attribut (`{id, name, rank}` — forme vérifiée :
+/// `format-product-attributes.js`, `toValue` + `attributes[].values`).
+class SellerAttributeValue {
+  const SellerAttributeValue({this.id, this.name, this.rank});
+
+  final String? id;
+  final String? name;
+  final int? rank;
+
+  factory SellerAttributeValue.fromJson(Map<String, dynamic> json) {
+    return SellerAttributeValue(
+      id: json['id'] as String?,
+      name: json['name'] as String?,
+      rank: (json['rank'] as num?)?.toInt(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (rank != null) 'rank': rank,
+    };
+  }
+}
+
 /// Product attribute definition (`product_attributes`).
 class SellerAttribute {
   const SellerAttribute({
@@ -77,6 +103,7 @@ class SellerAttribute {
     this.isVariantAxis,
     this.isFilterable,
     this.isRequired,
+    this.values = const [],
   });
 
   final String id;
@@ -87,7 +114,12 @@ class SellerAttribute {
   final bool? isFilterable;
   final bool? isRequired;
 
+  /// Valeurs disponibles (`values[]` sur le retrieve — parité web :
+  /// sélection `single_select`/`multi_select`).
+  final List<SellerAttributeValue> values;
+
   factory SellerAttribute.fromJson(Map<String, dynamic> json) {
+    final rawValues = json['values'];
     return SellerAttribute(
       id: json['id'] as String,
       name: json['name'] as String? ?? '',
@@ -96,6 +128,12 @@ class SellerAttribute {
       isVariantAxis: json['is_variant_axis'] as bool?,
       isFilterable: json['is_filterable'] as bool?,
       isRequired: json['is_required'] as bool?,
+      values: rawValues is List
+          ? rawValues
+                .whereType<Map<String, dynamic>>()
+                .map(SellerAttributeValue.fromJson)
+                .toList()
+          : const [],
     );
   }
 
@@ -108,6 +146,8 @@ class SellerAttribute {
       if (isVariantAxis != null) 'is_variant_axis': isVariantAxis,
       if (isFilterable != null) 'is_filterable': isFilterable,
       if (isRequired != null) 'is_required': isRequired,
+      if (values.isNotEmpty)
+        'values': values.map((v) => v.toJson()).toList(),
     };
   }
 }

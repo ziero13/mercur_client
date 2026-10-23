@@ -26,16 +26,19 @@ class SellerCatalogResource {
 
   final Dio _dio;
 
-  /// `GET /vendor/<domain>` with `limit`/`offset`/`q`.
+  /// `GET /vendor/<domain>` with `limit`/`offset`/`q`, plus optional
+  /// extra backend filters (e.g. `category_id` on product-attributes —
+  /// vérifié : `VendorProductAttributesParamsFields`).
   Future<({List<T> records, int count})> list<T>(
     String domain,
     String key,
     T Function(Map<String, dynamic>) fromJson, [
     SellerListStockParams? query,
+    Map<String, dynamic>? extra,
   ]) async {
     final res = await _dio.get<Map<String, dynamic>>(
       '/vendor/$domain',
-      queryParameters: query?.toQuery(),
+      queryParameters: {...?query?.toQuery(), ...?extra},
     );
     final data = res.data ?? const {};
     return (
@@ -62,9 +65,14 @@ class SellerCatalogResource {
 
   Future<({List<SellerAttribute> records, int count})> attributes([
     SellerListStockParams? query,
-  ]) =>
-      list('product-attributes', 'product_attributes',
-          SellerAttribute.fromJson, query);
+    String? categoryId,
+  ]) => list(
+    'product-attributes',
+    'product_attributes',
+    SellerAttribute.fromJson,
+    query,
+    categoryId == null ? null : {'category_id': categoryId},
+  );
 
   Future<({List<SellerNamedRef> records, int count})> collections([
     SellerListStockParams? query,

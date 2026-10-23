@@ -1,3 +1,5 @@
+import '../seller_product.dart';
+
 /// Body of `POST /vendor/products`.
 class SellerCreateProductReq {
   const SellerCreateProductReq({
@@ -12,6 +14,8 @@ class SellerCreateProductReq {
     this.imageUrls = const [],
     this.typeId,
     this.collectionId,
+    this.categoryIds = const [],
+    this.tagIds = const [],
   });
 
   final String title;
@@ -25,6 +29,10 @@ class SellerCreateProductReq {
   final List<String> imageUrls;
   final String? typeId;
   final String? collectionId;
+
+  /// `categories: [{id}]` / `tags: [{id}]` (parité web).
+  final List<String> categoryIds;
+  final List<String> tagIds;
 
   Map<String, dynamic> toJson() {
     return {
@@ -40,6 +48,10 @@ class SellerCreateProductReq {
         'images': imageUrls.map((u) => {'url': u}).toList(),
       if (typeId != null) 'type_id': typeId,
       if (collectionId != null) 'collection_id': collectionId,
+      if (categoryIds.isNotEmpty)
+        'categories': categoryIds.map((id) => {'id': id}).toList(),
+      if (tagIds.isNotEmpty)
+        'tags': tagIds.map((id) => {'id': id}).toList(),
     };
   }
 }
@@ -54,6 +66,19 @@ class SellerUpdateProductReq {
     this.isGiftcard,
     this.thumbnail,
     this.handle,
+    this.images = const [],
+    this.typeId,
+    this.collectionId,
+    this.categoryIds = const [],
+    this.tagIds = const [],
+    this.weight,
+    this.length,
+    this.height,
+    this.width,
+    this.hsCode,
+    this.midCode,
+    this.originCountry,
+    this.material,
   });
 
   final String? title;
@@ -64,6 +89,22 @@ class SellerUpdateProductReq {
   final String? thumbnail;
   final String? handle;
 
+  /// Remplacement complet de la galerie (`images: [{id?, url}]`,
+  /// vérifié : `UpdateProduct.images`, parité web).
+  final List<SellerProductImage> images;
+  final String? typeId;
+  final String? collectionId;
+  final List<String> categoryIds;
+  final List<String> tagIds;
+  final num? weight;
+  final num? length;
+  final num? height;
+  final num? width;
+  final String? hsCode;
+  final String? midCode;
+  final String? originCountry;
+  final String? material;
+
   Map<String, dynamic> toJson() {
     return {
       if (title != null) 'title': title,
@@ -73,6 +114,22 @@ class SellerUpdateProductReq {
       if (isGiftcard != null) 'is_giftcard': isGiftcard,
       if (thumbnail != null) 'thumbnail': thumbnail,
       if (handle != null) 'handle': handle,
+      if (images.isNotEmpty)
+        'images': images.map((i) => i.toJson()).toList(),
+      if (typeId != null) 'type_id': typeId,
+      if (collectionId != null) 'collection_id': collectionId,
+      if (categoryIds.isNotEmpty)
+        'categories': categoryIds.map((id) => {'id': id}).toList(),
+      if (tagIds.isNotEmpty)
+        'tags': tagIds.map((id) => {'id': id}).toList(),
+      if (weight != null) 'weight': weight,
+      if (length != null) 'length': length,
+      if (height != null) 'height': height,
+      if (width != null) 'width': width,
+      if (hsCode != null) 'hs_code': hsCode,
+      if (midCode != null) 'mid_code': midCode,
+      if (originCountry != null) 'origin_country': originCountry,
+      if (material != null) 'material': material,
     };
   }
 }
@@ -90,6 +147,14 @@ class SellerVariantReq {
     this.thumbnail,
     this.variantRank,
     this.weight,
+    this.length,
+    this.height,
+    this.width,
+    this.hsCode,
+    this.midCode,
+    this.originCountry,
+    this.material,
+    this.options = const {},
   });
 
   final String? title;
@@ -100,6 +165,16 @@ class SellerVariantReq {
   final String? thumbnail;
   final int? variantRank;
   final num? weight;
+  final num? length;
+  final num? height;
+  final num? width;
+  final String? hsCode;
+  final String? midCode;
+  final String? originCountry;
+  final String? material;
+
+  /// `options: {axe: valeur}` (génération cartésienne, parité web).
+  final Map<String, String> options;
 
   Map<String, dynamic> toJson() {
     return {
@@ -111,6 +186,14 @@ class SellerVariantReq {
       if (thumbnail != null) 'thumbnail': thumbnail,
       if (variantRank != null) 'variant_rank': variantRank,
       if (weight != null) 'weight': weight,
+      if (length != null) 'length': length,
+      if (height != null) 'height': height,
+      if (width != null) 'width': width,
+      if (hsCode != null) 'hs_code': hsCode,
+      if (midCode != null) 'mid_code': midCode,
+      if (originCountry != null) 'origin_country': originCountry,
+      if (material != null) 'material': material,
+      if (options.isNotEmpty) 'options': Map.of(options),
     };
   }
 }
