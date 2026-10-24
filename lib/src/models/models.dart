@@ -19,6 +19,7 @@ export 'seller_stock.dart';
 export 'seller_catalog.dart';
 export 'seller_rma.dart';
 export 'seller_pricing.dart';
+export 'seller_upload.dart';
 export 'pagination_params.dart';
 export 'enums/enums.dart';
 export 'headers/headers.dart';
