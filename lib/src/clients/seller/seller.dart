@@ -13,6 +13,7 @@ import 'rma_resource.dart';
 import 'sellers_resource.dart';
 import 'stock_resource.dart';
 import 'team_resource.dart';
+import 'uploads_resource.dart';
 
 /// Seller entry point — the `/vendor/*` surface.
 ///
@@ -41,7 +42,8 @@ class SellerClient {
         returns = SellerReturnsResource(dio),
         claims = SellerClaimsResource(dio),
         exchanges = SellerExchangesResource(dio),
-        pricing = SellerPricingResource(dio);
+        pricing = SellerPricingResource(dio),
+        uploads = SellerUploadsResource(dio);
 
   final SellerAuthResource auth;
   final SellerSellersResource sellers;
@@ -61,6 +63,7 @@ class SellerClient {
   final SellerClaimsResource claims;
   final SellerExchangesResource exchanges;
   final SellerPricingResource pricing;
+  final SellerUploadsResource uploads;
 
   Future<TokenRes> login(LoginReq body) => auth.login(body);
 }

@@ -19,4 +19,5 @@ export 'seller_payment_responses.dart';
 export 'seller_stock_responses.dart';
 export 'seller_rma_responses.dart';
 export 'seller_pricing_responses.dart';
+export 'seller_upload_responses.dart';
 export 'admin_seller_responses.dart';
